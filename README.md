@@ -178,7 +178,8 @@ docker compose up --build
 docker compose logs app
 ```
 
-> MySQL 준비 전 app이 먼저 뜨면서 발생하는 연결 실패 로그 스크린샷 첨부
+<img width="1917" height="632" alt="image" src="https://github.com/user-attachments/assets/09e3cd45-9e60-4f19-9995-dd126eb8e684" />
+
 
 ---
 
@@ -208,9 +209,7 @@ docker compose logs app
      restart: on-failure
    ```
 
-3. **애플리케이션 레벨 재시도 로직** (Spring Retry 등)
-
 ### 결론
 
-Docker healthcheck와 `depends_on`은 **실행 순서 문제를 해결하는 첫 번째 방어선**입니다.
+Docker healthcheck와 `depends_on`은 **실행 순서 문제를 해결하는 첫 번째 해결책**입니다.
 하지만 런타임 장애에 대응하려면 애플리케이션 레벨의 재연결 전략과 컨테이너 재시작 정책을 함께 설계해야 합니다.
