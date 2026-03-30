@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.10'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'fisa'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// JSP 렌더링 엔진 (Spring Boot가 버전을 관리하도록 버전 생략 권장)
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    // JSTL (Jakarta EE 9/10 규격)
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' // 인터페이스
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'           // 구현체
+
+    // ModelMapper (JDK 17 대응 최신 버전) - dto와 entity간의 복제
+    implementation 'org.modelmapper:modelmapper:3.2.0'	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
