@@ -118,15 +118,10 @@ spring.datasource.password=user01
 # 이미지 빌드 및 컨테이너 실행
 docker compose up --build
 ```
+<img width="1752" height="411" alt="image" src="https://github.com/user-attachments/assets/95a79ae9-8159-42b6-8174-22b9c0cc4899" />
 
-### 접속 URL
 
-| URL | 설명 |
-|-----|------|
-| `http://localhost:8081/emp/deptall` | 전체 부서 목록 조회 |
-| `http://localhost:8081/emp/get?ename=이름` | 직원 이름으로 조회 |
-| `http://localhost:8081/emp/dept?deptno=10` | 부서별 직원 조회 |
-| `http://localhost:8081/emp/actuator/health` | 앱 헬스체크 상태 |
+
 
 ---
 
@@ -137,7 +132,6 @@ docker compose up --build
 | 실험 조건 | app 컨테이너 생성 여부 | 비고 |
 |-----------|----------------------|------|
 | MySQL 정상 실행 (healthy) | ✅ 생성됨 | 정상 케이스 |
-| MySQL 실행 중 (starting) | ⏳ 대기 후 생성 | healthy 될 때까지 대기 |
 | MySQL 중단 상태 (unhealthy) | ❌ 생성 안 됨 | `condition: service_healthy` 효과 |
 | condition 설정 없는 경우 | ✅ 생성되나 앱 오류 | DB 준비 전 접속 시도 |
 
@@ -147,35 +141,29 @@ docker compose up --build
 docker compose up --build
 docker compose ps
 ```
+<img width="1391" height="98" alt="image" src="https://github.com/user-attachments/assets/56d6b07c-7c49-41a7-bf2f-da31fdb19890" />
 
-> 스크린샷 첨부
 
-### 실험 2. MySQL 실행 중 (starting) 상태에서 app 대기 확인
 
-`docker compose up` 직후 빠르게 확인:
-
-```bash
-docker compose ps
-```
-
-> `db` 상태가 `starting`일 때 `app`이 대기하는 모습 스크린샷 첨부
-
-### 실험 3. MySQL 강제 종료 후 app 동작 확인
+### 실험 2. MySQL 강제 종료 후 app 동작 확인
 
 ```bash
 docker compose stop db
 docker compose ps -a
 ```
+<img width="785" height="77" alt="image" src="https://github.com/user-attachments/assets/5e60ee1b-a0af-4ba8-a8dc-49af951462cc" />
 
-> `db`는 Exited, `app`은 Up 상태 스크린샷 첨부
+
+<img width="1029" height="78" alt="image" src="https://github.com/user-attachments/assets/705f2f17-4eee-432b-b20e-e1a732b41c9c" />
+
 
 ```bash
 curl http://localhost:8081/emp/deptall
 ```
+<img width="907" height="57" alt="image" src="https://github.com/user-attachments/assets/6c7a3e1c-9850-4c6a-a9f3-f1a8efc96307" />
 
-> DB 연결 실패 에러 스크린샷 첨부
 
-### 실험 4. condition 없이 실행 (비교 실험)
+### 실험 3. condition 없이 실행 (비교 실험)
 
 `docker-compose.yml`에서 condition 제거:
 
